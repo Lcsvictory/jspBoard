@@ -42,7 +42,7 @@ public class BbsDAO {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				return rs.getString(1) + 1;
+				return rs.getInt(1) + 1;
 			}
 			return 1; //첫번쨰 게시물
 		} catch (Exception e) {
@@ -52,20 +52,16 @@ public class BbsDAO {
 	}
 	
 	public int write(String bbsTitle, String userID, String bbsContent) {
-		String SQL = "INSERT INTO BBS VALUE (?, ?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO BBS VALUES (?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext());
-			pstmt.setInt(2, bbsTitle);
-			pstmt.setInt(3, userID);
-			pstmt.setInt(4, getDate());
-			pstmt.setInt(5, bbsContent);
-			pstmt.setInt(6, getNext());
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				return rs.getString(1) + 1;
-			}
-			return 1; //첫번쨰 게시물
+			pstmt.setString(2, bbsTitle);
+			pstmt.setString(3, userID);
+			pstmt.setString(4, getDate());
+			pstmt.setString(5, bbsContent);
+			pstmt.setInt(6, 1);
+			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
