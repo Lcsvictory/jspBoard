@@ -29,7 +29,7 @@ public class UserDAO {
 			pstmt = conn.prepareStatement(SQL); //SQL 이라고 써있는 곳에 SQL 에 정의해놓은 문장을 입력해라. 즉 mysql에 문장을 입력하는 것과 마찬가지.
 			pstmt.setString(1, userID); // SQL 에 첫번쨰 물음표에 userID 값을 넣어라.
 			rs = pstmt.executeQuery(); //executeQuery 는 rs에 pstmt 값을 반환해주는 함수이다.
-			if (rs.next()) {
+			if (rs.next()) { // rs에 값이 null이면 false, 값이 존재 하면 true를 준다.
 				if (rs.getString(1).equals(userPassword)) 
 					return 1; //로그인 성공
 				else 
