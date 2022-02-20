@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width" initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/custom.css"> 
 <title>JSP 게시판 웹 사이트</title>
 <style type="text/css"> <!--게시판 제목 글씨 색깔 변경-->
 	a, a:hover {
@@ -93,7 +94,7 @@
 					%>
 					<tr>
 					 	<td><%= list.get(i).getBbsID() %></td>
-					 	<td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle() %></a></td>
+					 	<td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle().replaceAll(" ", "&nbsp").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></a></td>
 						<td><%= list.get(i).getUserID() %></td>
 						<td><%= list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시" + list.get(i).getBbsDate().substring(14, 16) + "분" %></td>
 					</tr>
@@ -113,7 +114,14 @@
 			<%	
 				}
 			%>
-			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+			
+			<%
+				if(userID != null) { //로그인 안하면 글쓰기 버튼이 안뜸
+			%>
+					<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+			<%	
+				}
+			%>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
